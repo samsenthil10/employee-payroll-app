@@ -6,6 +6,7 @@ import profile4 from '../../assets/profile-images/Ellipse -8.png';
 import './PayrollForm.scss';
 import logo from '../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
+import EmployeePayrollService from "../../services/EmployeePayrollService";
 
 const PayrollForm = (props) => {
     let initialValue = {
@@ -41,6 +42,10 @@ const PayrollForm = (props) => {
         }
     }
     const [formValue, setForm] = useState(initialValue);
+
+    const employeeService = new EmployeePayrollService();
+    let _ = require('lodash');
+    formValue.id = _.uniqueId();
 
     const changeValue = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value })
@@ -80,7 +85,7 @@ const PayrollForm = (props) => {
             isError = true;
         }
 
-        if ((formValue.salary.valueOf()<400000)||(formValue.salary.valueOf()>500000)) {
+        if ((formValue.salary.valueOf() < 400000) || (formValue.salary.valueOf() > 500000)) {
             error.salary = 'Salary should be between 4,00,000 and 5,00,000!!'
             isError = true;
         }
@@ -96,13 +101,13 @@ const PayrollForm = (props) => {
         var day = formValue.day.valueOf();
         var month = formValue.month.valueOf();
         var year = formValue.year.valueOf();
-        var date = new Date(day+" "+month+" "+year);
+        var date = new Date(day + " " + month + " " + year);
         var nowDate = Date.now();
-        if(date>nowDate){
+        if (date > nowDate) {
             error.startDate = "StartDate is a future Date!!"
             isError = true;
         }
-        if(formValue.notes.length < 1){
+        if (formValue.notes.length < 1) {
             error.notes = "Notes is a required field"
             isError = true;
         }
@@ -113,9 +118,31 @@ const PayrollForm = (props) => {
     const save = async (event) => {
         event.preventDefault();
 
-        if(await handleValidations()){
+        if (await handleValidations()) {
             console.log("error", formValue);
             return;
+        }
+        else {
+            let object = {
+                name: formValue.name,
+                departMent: formValue.departMentValue,
+                gender: formValue.gender,
+                salary: formValue.salary,
+                startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
+                notes: formValue.notes,
+                id: formValue.id,
+                profileUrl: formValue.profileUrl,
+            };
+            console.log("id" + formValue.id);
+            employeeService.addEmployee(object)
+                .then((data) => {
+                    alert("data added successfully");
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    alert("error while Adding data");
+                    console.log(err);
+                });
         }
     }
 
@@ -141,7 +168,7 @@ const PayrollForm = (props) => {
                     <div className="row">
                         <label className="label text" htmlFor="name">Name</label>
                         <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={changeValue} placeholder="Your name.." />
-                    <error className="error">{formValue.error.name}</error>
+                        <div className="error">{formValue.error.name}</div>
                     </div>
                     <div className="row">
                         <label className="label text" htmlFor="profileUrl">Profile image</label>
@@ -164,7 +191,7 @@ const PayrollForm = (props) => {
                             </label>
 
                         </div>
-                        <error className="error">{formValue.error.profileUrl}</error>
+                        <div className="error">{formValue.error.profileUrl}</div>
                     </div>
                     <div className="row">
                         <label className="label text" htmlFor="gender">Gender</label>
@@ -174,7 +201,7 @@ const PayrollForm = (props) => {
                             <input type="radio" id="female" checked={formValue.gender === 'female'} onChange={changeValue} name="gender" value="female" />
                             <label className="text" htmlFor="female">Female</label>
                         </div>
-                        <error className="error">{formValue.error.gender}</error>
+                        <div className="error">{formValue.error.gender}</div>
                     </div>
                     <div className="row">
                         <label className="label text" htmlFor="department">Department</label>
@@ -188,13 +215,13 @@ const PayrollForm = (props) => {
                             ))}
 
                         </div>
-                        <error className="error">{formValue.error.department}</error>
+                        <div className="error">{formValue.error.department}</div>
                     </div>
 
                     <div className="row">
                         <label className="label text" htmlFor="salary">Salary</label>
                         <input className="input" type="text" id="salary" name="salary" value={formValue.salary} onChange={changeValue} />
-                        <error className="error">{formValue.error.salary}</error>
+                        <div className="error">{formValue.error.salary}</div>
                     </div>
 
                     <div className="row">
@@ -234,20 +261,21 @@ const PayrollForm = (props) => {
                                 <option value="31">31</option>
                             </select>
                             <select value={formValue.month} onChange={changeValue} id="month" name="month">
-                                <option value="Jan">January</option>
-                                <option value="Feb">Febuary</option>
+                                <option value="January">January</option>
+                                <option value="February">Febuary</option>
                                 <option value="March">March</option>
                                 <option value="April">April</option>
                                 <option value="May">May</option>
                                 <option value="June">June</option>
                                 <option value="July">July</option>
-                                <option value="Aug">August</option>
-                                <option value="Sept">September</option>
-                                <option value="Oct">October</option>
-                                <option value="Nov">November</option>
-                                <option value="Dec">December</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
                             </select>
                             <select value={formValue.year} onChange={changeValue} id="year" name="year">
+                                <option value="2020">2021</option>
                                 <option value="2020">2020</option>
                                 <option value="2019">2019</option>
                                 <option value="2018">2018</option>
@@ -255,14 +283,14 @@ const PayrollForm = (props) => {
                                 <option value="2016">2016</option>
                             </select>
                         </div>
-                        <error className="error">{formValue.error.startDate}</error>
+                        <div className="error">{formValue.error.startDate}</div>
                     </div>
 
                     <div className="row">
                         <label className="label text" htmlFor="notes">Notes</label>
                         <textarea onChange={changeValue} id="notes" value={formValue.notes} className="input" name="notes" placeholder=""
                             style={{ height: '120%' }}></textarea>
-                    <error className="error">{formValue.error.notes}</error>
+                        <div className="error">{formValue.error.notes}</div>
                     </div>
 
                     <div className="buttonParent">
