@@ -1,11 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import PayrollForm from './components/payroll-form/PayrollForm'
+import './App.css'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom"
 
 function App() {
   return (
-    <h1>
-      Hello World
-    </h1>
+    <div className="App">
+      <Router>
+        <Routes>
+        <Route path="/" element={<PayrollForm />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
