@@ -5,6 +5,11 @@ class AxiosService{
     {
         return axios.post(url,payload,tokenRequired&& httpOptions)
     }
+
+    getService(url='')
+    {
+        return axios.get(url)
+    }
 }
 
 module.exports= new AxiosService()
