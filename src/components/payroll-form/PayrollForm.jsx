@@ -7,6 +7,7 @@ import './PayrollForm.scss';
 import logo from '../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
 import EmployeePayrollService from "../../services/EmployeePayrollService";
+import DisplayMessage from '../display-message/DisplayMessage';
 
 const PayrollForm = (props) => {
     let initialValue = {
@@ -42,6 +43,7 @@ const PayrollForm = (props) => {
         }
     }
     const [formValue, setForm] = useState(initialValue);
+    const [displayMessage, setDisplayeMessage] = useState("");
 
     const employeeService = new EmployeePayrollService();
     let _ = require('lodash');
@@ -107,10 +109,7 @@ const PayrollForm = (props) => {
             error.startDate = "StartDate is a future Date!!"
             isError = true;
         }
-        if (formValue.notes.length < 1) {
-            error.notes = "Notes is a required field"
-            isError = true;
-        }
+
         await setForm({ ...formValue, error: error })
         return isError;
 
@@ -136,12 +135,15 @@ const PayrollForm = (props) => {
             console.log("id" + formValue.id);
             employeeService.addEmployee(object)
                 .then((data) => {
-                    alert("data added successfully");
-                    window.location.reload();
+                    setDisplayeMessage("Successfullly added User")
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+
                 })
+
                 .catch((err) => {
-                    alert("error while Adding data");
-                    console.log(err);
+                    setDisplayeMessage("Error while  adding")
                 });
         }
     }
@@ -301,6 +303,7 @@ const PayrollForm = (props) => {
                             <button type="button" onClick={reset} className="resetButton button">Reset</button>
                         </div>
                     </div >
+                     <div className="displayMessage">{displayMessage}</div>
                 </form >
             </div >
         </div >
