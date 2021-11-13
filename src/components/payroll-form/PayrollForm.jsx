@@ -43,7 +43,8 @@ const PayrollForm = (props) => {
         }
     }
     const [formValue, setForm] = useState(initialValue);
-    const [displayMessage, setDisplayeMessage] = useState("");
+    const [displayMessageSuccess, setDisplayMessageSuccess] = useState("");
+    const [displayMessageError, setDisplayMessageError] = useState("");
 
     const employeeService = new EmployeePayrollService();
     let _ = require('lodash');
@@ -135,15 +136,14 @@ const PayrollForm = (props) => {
             console.log("id" + formValue.id);
             employeeService.addEmployee(object)
                 .then((data) => {
-                    setDisplayeMessage("Successfullly added User")
+                    setDisplayMessageSuccess("Successfullly added User")
                     setTimeout(() => {
                         window.location.reload();
                     }, 3000);
 
                 })
-
                 .catch((err) => {
-                    setDisplayeMessage("Error while  adding")
+                    setDisplayMessageError("Error while  adding")
                 });
         }
     }
@@ -303,7 +303,8 @@ const PayrollForm = (props) => {
                             <button type="button" onClick={reset} className="resetButton button">Reset</button>
                         </div>
                     </div >
-                     <div className="displayMessage">{displayMessage}</div>
+                     <div className="displayMessageSuccess">{displayMessageSuccess}</div>
+                     <div className="displayMessageError">{displayMessageError}</div>
                 </form >
             </div >
         </div >
