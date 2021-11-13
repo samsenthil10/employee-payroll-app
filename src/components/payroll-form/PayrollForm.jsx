@@ -136,6 +136,7 @@ const PayrollForm = (props) => {
             console.log("id" + formValue.id);
             employeeService.addEmployee(object)
                 .then((data) => {
+                    setDisplayMessageError("")
                     setDisplayMessageSuccess("Successfullly added User")
                     setTimeout(() => {
                         window.location.reload();
@@ -143,7 +144,8 @@ const PayrollForm = (props) => {
 
                 })
                 .catch((err) => {
-                    setDisplayMessageError("Error while  adding")
+                    setDisplayMessageSuccess("")
+                    setDisplayMessageError("Error while adding")
                 });
         }
     }
