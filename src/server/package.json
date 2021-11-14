@@ -5,9 +5,12 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specification\"&& exit 1",
-        "start": "json-server --watch ./db.json"
+        "start": "json-server --watch --port 3001 ./db.json"
     },
     "keywords": [],
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "package.json": "^2.0.1"
+    }
 }

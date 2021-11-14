@@ -4,10 +4,13 @@ import AxiosService from './AxiosService'
 export default class EmployeePayrollService {
   baseUrl = config.baseUrl;
   addEmployee(data) {
-    return AxiosService.postService(`${this.baseUrl}employee`,data);
+    return AxiosService.postService(`${this.baseUrl}employee`, data);
   }
   getAllEmployee() {
-        return AxiosService.getService(`${this.baseUrl}employee`);
+    return AxiosService.getService(`${this.baseUrl}employee`);
 
-    }
+  }
+  updateEmployee(data) {
+    return AxiosService.putService(`${this.baseUrl}employee`, data);
+  }
 }
