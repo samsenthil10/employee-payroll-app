@@ -23,9 +23,7 @@ class HomePage extends Component {
     getEmployee = () => {
 
         employeeService.getAllEmployee().then(obj => {
-            console.log("get data" + obj.data);
             this.setState({ employeeArray: obj.data })
-
         })
             .catch(err => {
                 console.log("err while get");
@@ -49,7 +47,8 @@ class HomePage extends Component {
             <div onLoad={this.getEmployee}>
                 <header className='header row center'>
                 <div className="logo">
-                    <img src={logo} alt="" />
+                    <Link to="/">
+                    <img src={logo} alt="" /></Link>
                     <div>
                         <span className="emp-text">EMPLOYEE</span> <br />
                         <span className="emp-text emp-payroll">PAYROLL</span>

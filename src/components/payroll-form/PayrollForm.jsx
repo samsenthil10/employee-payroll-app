@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import profile1 from '../../assets/profile-images/Ellipse -1.png';
 import profile2 from '../../assets/profile-images/Ellipse -3.png';
 import profile3 from '../../assets/profile-images/Ellipse -7.png';
@@ -7,7 +7,6 @@ import './PayrollForm.scss';
 import logo from '../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
 import EmployeePayrollService from "../../services/EmployeePayrollService";
-import DisplayMessage from '../display-message/DisplayMessage';
 
 const PayrollForm = (props) => {
     let initialValue = {
@@ -159,7 +158,8 @@ const PayrollForm = (props) => {
         <div className="payroll-main">
             <header className='header row center'>
                 <div className="logo">
-                    <img src={logo} alt="" />
+                    <Link to="/">
+                        <img src={logo} alt="" /></Link>
                     <div>
                         <span className="emp-text">EMPLOYEE</span> <br />
                         <span className="emp-text emp-payroll">PAYROLL</span>
@@ -305,8 +305,8 @@ const PayrollForm = (props) => {
                             <button type="button" onClick={reset} className="resetButton button">Reset</button>
                         </div>
                     </div >
-                     <div className="displayMessageSuccess">{displayMessageSuccess}</div>
-                     <div className="displayMessageError">{displayMessageError}</div>
+                    <div className="displayMessageSuccess">{displayMessageSuccess}</div>
+                    <div className="displayMessageError">{displayMessageError}</div>
                 </form >
             </div >
         </div >
