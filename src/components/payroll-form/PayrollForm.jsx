@@ -5,7 +5,7 @@ import profile3 from '../../assets/profile-images/Ellipse -7.png';
 import profile4 from '../../assets/profile-images/Ellipse -8.png';
 import './PayrollForm.scss';
 import logo from '../../assets/images/logo.png'
-import { Link, useParams} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import EmployeePayrollService from "../../services/EmployeePayrollService";
 
 const PayrollForm = (props) => {
@@ -57,12 +57,10 @@ const PayrollForm = (props) => {
         employeeService
             .getEmployee(id)
             .then((data) => {
-                console.log("data is ", data.data);
                 let obj = data.data;
                 setData(obj);
             })
             .catch((err) => {
-                console.log("err is ", err);
             });
     };
 
@@ -84,7 +82,6 @@ const PayrollForm = (props) => {
 
     const changeValue = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value })
-        console.log(event.target.value)
     }
 
     const onCheckChange = (name) => {
@@ -151,7 +148,6 @@ const PayrollForm = (props) => {
         event.preventDefault();
 
         if (await handleValidations()) {
-            console.log("error", formValue);
             return;
         }
         else {
@@ -165,7 +161,6 @@ const PayrollForm = (props) => {
                 id: formValue.id,
                 profileUrl: formValue.profileUrl,
             };
-            console.log("id" + formValue.id);
             if (formValue.isUpdate) {
                 employeeService
                     .updateEmployee(params.id, object)
@@ -198,27 +193,27 @@ const PayrollForm = (props) => {
 
     const reset = () => {
         setForm({ ...initialValue, id: formValue.id, isUpdate: formValue.isUpdate });
-
-        console.log(formValue);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     return (
         <div className="payroll-main">
             <header className='header row center'>
                 <div className="logo">
                     <Link to="/">
-                        <img src={logo} alt="" /></Link>
-                    <div>
+                        <img className = "emp-logo" src={logo} alt="" /></Link>
+                    <div className = "emp-texts">
                         <span className="emp-text">EMPLOYEE</span> <br />
                         <span className="emp-text emp-payroll">PAYROLL</span>
                     </div>
                 </div>
+
             </header>
             <div className="content">
                 <form className="form" action="#" onSubmit={save}>
                     <div className="form-head">Employee Payroll form</div>
                     <div className="row">
                         <label className="label text" htmlFor="name">Name</label>
-                        <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={changeValue} placeholder="Your name.." />
+                        <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={changeValue} placeholder="Your name.." autoComplete="off" />
                         <div className="error">{formValue.error.name}</div>
                     </div>
                     <div className="row">
@@ -271,7 +266,7 @@ const PayrollForm = (props) => {
 
                     <div className="row">
                         <label className="label text" htmlFor="salary">Salary</label>
-                        <input className="input" type="text" id="salary" name="salary" value={formValue.salary} onChange={changeValue} />
+                        <input className="input" type="text" id="salary" name="salary" value={formValue.salary} onChange={changeValue} autoComplete="off" />
                         <div className="error">{formValue.error.salary}</div>
                     </div>
 
@@ -345,7 +340,7 @@ const PayrollForm = (props) => {
                     </div>
 
                     <div className="buttonParent">
-                        <Link to="" className="resetButton button cancelButton">Cancel</Link>
+                        <Link to="/" className="resetButton button cancelButton">Cancel</Link>
 
                         <div className="submit-reset">
                             <button type="submit" className="button submitButton" id="submitButton">{formValue.isUpdate ? 'Update' : 'Submit'}</button>

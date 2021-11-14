@@ -26,7 +26,6 @@ class HomePage extends Component {
             this.setState({ employeeArray: obj.data })
         })
             .catch(err => {
-                console.log("err while get");
                 this.setState({ employeeArray: [] })
 
             })
@@ -48,12 +47,13 @@ class HomePage extends Component {
                 <header className='header row center'>
                 <div className="logo">
                     <Link to="/">
-                    <img src={logo} alt="" /></Link>
-                    <div>
+                        <img className = "emp-logo" src={logo} alt="" /></Link>
+                    <div className = "emp-texts">
                         <span className="emp-text">EMPLOYEE</span> <br />
                         <span className="emp-text emp-payroll">PAYROLL</span>
                     </div>
                 </div>
+
             </header>
                 <div className="main-content">
                     <div className="header-content">

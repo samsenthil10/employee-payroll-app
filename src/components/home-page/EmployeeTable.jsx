@@ -7,13 +7,21 @@ import profile3 from '../../assets/profile-images/Ellipse -7.png';
 import profile4 from '../../assets/profile-images/Ellipse -8.png';
 import './HomePage.scss';
 import { Link } from "react-router-dom";
+import EmployeePayrollService from "../../services/EmployeePayrollService";
 
 const Display = (props) => {
 
     var prof;
 
     const remove = (id) => {
-        console.log("remove")
+        const employeeService = new EmployeePayrollService()
+        var status = window.confirm("Are you sure you want to delete?")
+        if (status === true) {
+            employeeService.deleteEmployee(id)
+            window.location.reload()
+        }
+        else
+            window.location.reload()
     }
 
     const getProfile = (profileUrl) => {
@@ -57,7 +65,7 @@ const Display = (props) => {
                             <td>{element.startDate}</td>
                             <td>
                                 <img onClick={() => remove(element.id)} src={deleteIcon} alt="delete" />
-                                <Link to = {`/payroll-form/${element.id}`} > <img  src={editIcon} alt="edit" /> </Link>
+                                <Link to={`/payroll-form/${element.id}`} > <img src={editIcon} alt="edit" /> </Link>
                             </td>
                         </tr>
                     ))

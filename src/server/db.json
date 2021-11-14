@@ -6,9 +6,9 @@
         "HR"
       ],
       "gender": "male",
-      "salary": "456787",
+      "salary": "496979",
       "startDate": "1 November 2021",
-      "notes": "",
+      "notes": "Hello World!",
       "id": "44",
       "profileUrl": "../../assets/profile-images/Ellipse -3.png"
     },
@@ -19,11 +19,36 @@
         "Finance"
       ],
       "gender": "female",
-      "salary": "444567",
-      "startDate": "14 November 2021",
-      "notes": "",
+      "salary": "456700",
+      "startDate": "5 November 2021",
+      "notes": "Superior!",
       "id": "174",
       "profileUrl": "../../assets/profile-images/Ellipse -1.png"
+    },
+    {
+      "name": "Triangle",
+      "department": [
+        "Engineer"
+      ],
+      "gender": "male",
+      "salary": "454600",
+      "startDate": "10 November 2021",
+      "notes": "Follow Superior!",
+      "id": "240",
+      "profileUrl": "../../assets/profile-images/Ellipse -8.png"
+    },
+    {
+      "name": "Circle",
+      "department": [
+        "Sales",
+        "Others"
+      ],
+      "gender": "female",
+      "salary": "432100",
+      "startDate": "14 November 2021",
+      "notes": "Clueless!",
+      "id": "332",
+      "profileUrl": "../../assets/profile-images/Ellipse -7.png"
     }
   ]
 }
