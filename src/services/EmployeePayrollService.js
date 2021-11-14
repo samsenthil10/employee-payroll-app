@@ -10,7 +10,11 @@ export default class EmployeePayrollService {
     return AxiosService.getService(`${this.baseUrl}employee`);
 
   }
-  updateEmployee(data) {
-    return AxiosService.putService(`${this.baseUrl}employee`, data);
+  updateEmployee(id,data) {
+    return AxiosService.putService(`${this.baseUrl}employee/${id}`, data);
+  }
+  getEmployee(id) {
+    return AxiosService.getService(`${this.baseUrl}employee/${id}`);
+
   }
 }

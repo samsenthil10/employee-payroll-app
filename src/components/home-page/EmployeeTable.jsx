@@ -6,6 +6,7 @@ import profile2 from '../../assets/profile-images/Ellipse -3.png';
 import profile3 from '../../assets/profile-images/Ellipse -7.png';
 import profile4 from '../../assets/profile-images/Ellipse -8.png';
 import './HomePage.scss';
+import { Link } from "react-router-dom";
 
 const Display = (props) => {
 
@@ -13,12 +14,6 @@ const Display = (props) => {
 
     const remove = (id) => {
         console.log("remove")
-    }
-
-    const update = (id) => {
-        console.log("update")
-
-
     }
 
     const getProfile = (profileUrl) => {
@@ -54,7 +49,7 @@ const Display = (props) => {
                             <td>{element.name}</td>
                             <td>{element.gender}</td>
                             <td><div className="depts">
-                                {element.departMent && element.departMent.map(dept => (
+                                {element.department && element.department.map(dept => (
                                     <div className="dept-label">{dept}</div>
                                 ))}
                             </div></td>
@@ -62,7 +57,7 @@ const Display = (props) => {
                             <td>{element.startDate}</td>
                             <td>
                                 <img onClick={() => remove(element.id)} src={deleteIcon} alt="delete" />
-                                <img onClick={() => update(element.id)} src={editIcon} alt="edit" />
+                                <Link to = {`/payroll-form/${element.id}`} > <img  src={editIcon} alt="edit" /> </Link>
                             </td>
                         </tr>
                     ))

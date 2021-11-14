@@ -15,6 +15,7 @@ function App() {
         <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/payroll-form" element={<PayrollForm />} />
+        <Route path="/payroll-form/:id" element={<PayrollForm />} />
         </Routes>
       </Router>
     </div>

@@ -1,29 +1,29 @@
 {
-    "employee": [{
-            "name": "Front Man",
-            "departMent": [
-                "HR",
-                "Engineer"
-            ],
-            "gender": "male",
-            "salary": "456789",
-            "startDate": "1 October 2020",
-            "notes": "",
-            "id": "20",
-            "profileUrl": "../../assets/profile-images/Ellipse -3.png"
-        },
-        {
-            "name": "Square",
-            "departMent": [
-                "Sales",
-                "Finance"
-            ],
-            "gender": "female",
-            "salary": "444555",
-            "startDate": "10 October 2020",
-            "notes": "",
-            "id": "44",
-            "profileUrl": "../../assets/profile-images/Ellipse -1.png"
-        }
-    ]
+  "employee": [
+    {
+      "name": "Front Man",
+      "department": [
+        "HR"
+      ],
+      "gender": "male",
+      "salary": "456787",
+      "startDate": "1 November 2021",
+      "notes": "",
+      "id": "44",
+      "profileUrl": "../../assets/profile-images/Ellipse -3.png"
+    },
+    {
+      "name": "Square",
+      "department": [
+        "Sales",
+        "Finance"
+      ],
+      "gender": "female",
+      "salary": "444567",
+      "startDate": "14 November 2021",
+      "notes": "",
+      "id": "174",
+      "profileUrl": "../../assets/profile-images/Ellipse -1.png"
+    }
+  ]
 }

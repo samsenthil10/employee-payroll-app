@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import profile1 from '../../assets/profile-images/Ellipse -1.png';
 import profile2 from '../../assets/profile-images/Ellipse -3.png';
 import profile3 from '../../assets/profile-images/Ellipse -7.png';
 import profile4 from '../../assets/profile-images/Ellipse -8.png';
 import './PayrollForm.scss';
 import logo from '../../assets/images/logo.png'
-import { Link } from 'react-router-dom';
+import { Link, useParams} from 'react-router-dom';
 import EmployeePayrollService from "../../services/EmployeePayrollService";
 
 const PayrollForm = (props) => {
@@ -21,12 +21,12 @@ const PayrollForm = (props) => {
         allDepartment: [
             'HR', 'Sales', 'Finance', 'Engineer', 'Others'
         ],
-        departMentValue: [],
+        department: [],
         gender: '',
         salary: '',
         day: '1',
         month: 'Jan',
-        year: '2020',
+        year: '2021',
         startDate: '',
         notes: '',
         id: '',
@@ -44,8 +44,41 @@ const PayrollForm = (props) => {
     const [formValue, setForm] = useState(initialValue);
     const [displayMessageSuccess, setDisplayMessageSuccess] = useState("");
     const [displayMessageError, setDisplayMessageError] = useState("");
-
     const employeeService = new EmployeePayrollService();
+    const params = useParams();
+    useEffect(() => {
+        if (params.id) {
+            getDataById(params.id);
+        }
+        // eslint-disable-next-line
+    }, []);
+
+    const getDataById = (id) => {
+        employeeService
+            .getEmployee(id)
+            .then((data) => {
+                console.log("data is ", data.data);
+                let obj = data.data;
+                setData(obj);
+            })
+            .catch((err) => {
+                console.log("err is ", err);
+            });
+    };
+
+    const setData = (obj) => {
+        let array = obj.startDate.split(" ");
+        setForm({
+            ...formValue,
+            ...obj,
+            department: obj.department,
+            isUpdate: true,
+            day: array[0],
+            month: array[1],
+            year: array[2],
+        });
+    };
+
     let _ = require('lodash');
     formValue.id = _.uniqueId();
 
@@ -55,17 +88,17 @@ const PayrollForm = (props) => {
     }
 
     const onCheckChange = (name) => {
-        let index = formValue.departMentValue.indexOf(name);
+        let index = formValue.department.indexOf(name);
 
-        let checkArray = [...formValue.departMentValue]
+        let checkArray = [...formValue.department]
         if (index > -1)
             checkArray.splice(index, 1)
         else
             checkArray.push(name);
-        setForm({ ...formValue, departMentValue: checkArray });
+        setForm({ ...formValue, department: checkArray });
     }
     const getChecked = (name) => {
-        return formValue.departMentValue && formValue.departMentValue.includes(name);
+        return formValue.department && formValue.department.includes(name);
     }
 
     const handleValidations = async () => {
@@ -96,7 +129,7 @@ const PayrollForm = (props) => {
             isError = true;
         }
 
-        if (formValue.departMentValue.length < 1) {
+        if (formValue.department.length < 1) {
             error.department = 'Department is a required field'
             isError = true;
         }
@@ -124,7 +157,7 @@ const PayrollForm = (props) => {
         else {
             let object = {
                 name: formValue.name,
-                departMent: formValue.departMentValue,
+                department: formValue.department,
                 gender: formValue.gender,
                 salary: formValue.salary,
                 startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
@@ -133,19 +166,33 @@ const PayrollForm = (props) => {
                 profileUrl: formValue.profileUrl,
             };
             console.log("id" + formValue.id);
-            employeeService.addEmployee(object)
-                .then((data) => {
-                    setDisplayMessageError("")
-                    setDisplayMessageSuccess("Successfullly added User")
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 3000);
-
-                })
-                .catch((err) => {
-                    setDisplayMessageSuccess("")
-                    setDisplayMessageError("Error while adding")
-                });
+            if (formValue.isUpdate) {
+                employeeService
+                    .updateEmployee(params.id, object)
+                    .then((data) => {
+                        setDisplayMessageError("")
+                        setDisplayMessageSuccess("Successfully Updated Data")
+                        setTimeout(3000)
+                        reset()
+                    })
+                    .catch((error) => {
+                        setDisplayMessageSuccess("")
+                        setDisplayMessageError("Error While Updating Data")
+                    });
+            } else {
+                employeeService
+                    .addEmployee(object)
+                    .then((data) => {
+                        setDisplayMessageError("")
+                        setDisplayMessageSuccess("Successfully Added Data")
+                        setTimeout(3000)
+                        reset()
+                    })
+                    .catch((err) => {
+                        setDisplayMessageSuccess("")
+                        setDisplayMessageError("Error While Adding Data")
+                    });
+            }
         }
     }
 
