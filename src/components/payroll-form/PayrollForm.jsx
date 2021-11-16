@@ -130,7 +130,7 @@ const PayrollForm = (props) => {
         var day = formValue.day;
         var month = formValue.month;
         var year = formValue.year;
-        console.log(day+" "+month+" "+year)
+        console.log(day + " " + month + " " + year)
         var date = new Date(day + " " + month + " " + year);
         var nowDate = Date.now();
         if (date > nowDate) {
@@ -194,12 +194,12 @@ const PayrollForm = (props) => {
     }
     return (
         <div className="payroll-main">
-            <header className='header row center'>
+            <header className="header row center">
+
                 <div className="logo">
-                    <Link to="/">
-                        <img className = "emp-logo" src={logo} alt="" /></Link>
-                    <div className = "emp-texts">
-                        <span className="emp-text">EMPLOYEE</span> <br />
+                    <img src={logo} alt="" />
+                    <div>
+                        <span className="emp-text">EMPLOYEE</span><br />
                         <span className="emp-text emp-payroll">PAYROLL</span>
                     </div>
                 </div>

@@ -1,25 +1,31 @@
-.header {
+body {
+    text-transform: capitalize;
+}
+
+header {
     padding: 15px 0;
     background-color: #ffffff;
     .logo {
         display: flex;
         flex-direction: row;
-        margin-right: 80%;
+        align-items: center;
+        width: 80%;
     }
     .emp-text {
-        font: normal normal bold 20px/10px Montserrat;
+        font: normal normal bold 20px/25px Montserrat;
         font-family: "Montserrat", sans-serif;
         letter-spacing: 0px;
         color: #82a70c;
         text-transform: capitalize;
     }
     .emp-payroll {
-        margin-right: 90%;
         color: #42515f;
     }
-    .emp-logo+.emp-texts {
-        margin-left: 5px;
-    }
+}
+
+#root {
+    height: 100vh;
+    background-color: white;
 }
 
 .main-content {
@@ -41,15 +47,6 @@
         letter-spacing: 0px;
         color: #42515f;
         opacity: 1;
-    }
-    .emp-count {
-        background-color: #82a70c;
-        color: #ffffff;
-        border-radius: 42%;
-        font-size: 16px;
-        width: 26px;
-        text-align: center;
-        display: inline-block;
     }
     .add-button {
         background: #82A70C 0% 0% no-repeat padding-box;
@@ -81,9 +78,25 @@
         .dept-label {
             margin-right: 20px;
         }
+        .dept-label {
+            background-color: #e9fea5;
+            border-radius: 40%;
+            width: fit-content;
+            padding: 1px 7px;
+            display: inline-block;
+            font-weight: 300;
+            margin-bottom: 8px;
+            text-align: left;
+            font: normal normal normal 16px/27px Roboto;
+            letter-spacing: 0px;
+            color: #3D3D3D;
+            opacity: 1;
+            font-size: large;
+        }
         .depts {
             display: flex;
             flex-direction: row;
+            width: 200px
         }
         .table {
             width: 100%;
@@ -118,10 +131,12 @@
             margin-left: 20px;
         }
         td {
-            font: normal normal normal 14px/21px Roboto;
+            text-align: left;
+            font: normal normal normal 16px/27px Roboto;
             letter-spacing: 0px;
-            color: #3d3d3d;
+            color: #3D3D3D;
             opacity: 1;
+            font-size: large;
         }
         td:first-child {
             display: flex;
@@ -139,5 +154,8 @@
         td img {
             cursor: pointer;
         }
+    }
+    .input+.search-icon {
+        margin-left: 15px;
     }
 }
