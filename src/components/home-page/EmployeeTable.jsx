@@ -24,15 +24,15 @@ const Display = (props) => {
             window.location.reload()
     }
 
-    const getProfile = (profileUrl) => {
+    const getProfile = (profilePic) => {
 
-        if (profileUrl === '../../assets/profile-images/Ellipse -1.png')
+        if (profilePic === '../../assets/profile-images/Ellipse -1.png')
             prof = profile1;
-        else if (profileUrl === '../../assets/profile-images/Ellipse -3.png')
+        else if (profilePic === '../../assets/profile-images/Ellipse -3.png')
             prof = profile2;
-        else if (profileUrl === '../../assets/profile-images/Ellipse -7.png')
+        else if (profilePic === '../../assets/profile-images/Ellipse -7.png')
             prof = profile3;
-        else if (profileUrl === '../../assets/profile-images/Ellipse -8.png')
+        else if (profilePic === '../../assets/profile-images/Ellipse -8.png')
             prof = profile4;
     }
 
@@ -53,19 +53,23 @@ const Display = (props) => {
                 {
                     props.employeeArray && props.employeeArray.map((element, ind) => (
                         <tr key={ind}>
-                            <td><img className="profile" onLoad={getProfile(element.profileUrl)} src={prof} alt="" /></td>
+                            <td><img className="profile" onLoad={getProfile(element.profilePic)} src={prof} alt="" /></td>
                             <td>{element.name}</td>
                             <td>{element.gender}</td>
                             <td><div className="depts">
-                                {element.department && element.department.map(dept => (
+                                {element.departments && element.departments.map(dept => (
                                     <div className="dept-label">{dept}</div>
                                 ))}
                             </div></td>
                             <td>{element.salary}</td>
-                            <td>{element.startDate}</td>
                             <td>
-                                <img onClick={() => remove(element.id)} src={deleteIcon} alt="delete" />
-                                <Link to={`/payroll-form/${element.id}`} > <img src={editIcon} alt="edit" /> </Link>
+                                {(new Date(element.startDate)).toLocaleDateString('en-GB', {
+                                    day: 'numeric', month: 'short', year: 'numeric'
+                                })}
+                            </td>
+                            <td>
+                                <img onClick={() => remove(element.employeeId)} src={deleteIcon} alt="delete" />
+                                <Link to={`/payroll-form/${element.employeeId}`} > <img src={editIcon} alt="edit" /> </Link>
                             </td>
                         </tr>
                     ))

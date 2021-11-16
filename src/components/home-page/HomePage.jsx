@@ -23,13 +23,12 @@ class HomePage extends Component {
     getEmployee = () => {
 
         employeeService.getAllEmployee().then(obj => {
-            this.setState({ employeeArray: obj.data })
+            this.setState({ employeeArray: obj.data.data })
         })
             .catch(err => {
                 this.setState({ employeeArray: [] })
 
             })
-
     }
 
 
